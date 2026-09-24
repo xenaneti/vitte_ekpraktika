@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% block content %}<div class="container section narrow">
+{% include 'includes/page_heading.html' with heading='Поиск по сайту' eyebrow='Помещения, услуги и статьи' %}
+<form method="get" class="search-form"><label class="visually-hidden" for="search-query">Поисковый запрос</label><input type="search" id="search-query" name="q" value="{{ query }}" maxlength="120" placeholder="Например, сауна или полотенце"><button class="button" type="submit">Найти</button></form>
+{% if query %}<p class="search-count">По запросу «{{ query }}» найдено: {{ results|length }}</p><div class="search-results">{% for item in results %}<article><span class="eyebrow">{{ item.category }}</span><h2><a href="{{ item.url }}">{{ item.title }}</a></h2><p>{{ item.text|truncatechars:230 }}</p></article>{% empty %}<div class="empty-state"><h2>Ничего не найдено</h2><p>Попробуйте другое слово. Например, «баня», «чай» или «аренда».</p></div>{% endfor %}</div>{% else %}<p class="muted">Введите название помещения, услуги или интересующую тему.</p>{% endif %}
+</div>{% endblock %}

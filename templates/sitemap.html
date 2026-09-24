@@ -1,0 +1,2 @@
+{% extends 'base.html' %}
+{% block content %}<div class="container section narrow">{% include 'includes/page_heading.html' with heading='Карта сайта' eyebrow='Все разделы' %}<ul class="sitemap-tree"><li><a href="{% url 'home' %}">Главная</a><ul>{% for name, label in navigation %}<li><a href="{% url name %}">{{ label }}</a></li>{% endfor %}<li><a href="{% url 'search' %}">Поиск по сайту</a></li><li><a href="{% url 'account' %}">Личный кабинет</a></li>{% if user.is_staff %}<li><a href="{% url 'staff' %}">Управление сайтом</a></li>{% endif %}</ul></li></ul></div>{% endblock %}

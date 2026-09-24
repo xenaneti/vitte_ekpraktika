@@ -1,0 +1,2 @@
+{% extends 'base.html' %}
+{% block content %}<div class="container error-page"><span class="error-code">{{ code }}</span><h1>{{ heading }}</h1><p>{{ explanation }}</p><div class="action-row"><a class="button" href="{% url 'home' %}">На главную</a><a class="button secondary" href="{% url 'search' %}">Поиск по сайту</a></div></div>{% endblock %}
