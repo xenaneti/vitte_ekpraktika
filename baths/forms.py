@@ -8,8 +8,10 @@ from django.utils import timezone
 from .models import Inquiry, Message, Publication
 
 IMAGES = [
-    ("images/sauna.jpg", "Светлая сауна"), ("images/banya.jpg", "Деревянная баня"),
-    ("images/interior.jpg", "Интерьер парной"), ("images/tea.jpg", "Чай"),
+    ("images/sauna.webp", "Светлая сауна"),
+    ("images/banya.webp", "Деревянная баня"),
+    ("images/interior.webp", "Интерьер парной"),
+    ("images/tea.webp", "Чай"),
 ]
 
 
@@ -29,11 +31,16 @@ class RegisterForm(UserCreationForm):
 
 
 class InquiryForm(forms.ModelForm):
-    consent = forms.BooleanField(label="Согласен на сохранение обращения и контактов для ответа")
+    consent = forms.BooleanField(
+        label="Согласен на сохранение обращения и контактов для ответа"
+    )
     visit_at = forms.DateTimeField(
-        label="Желаемые дата и время", required=False,
+        label="Желаемые дата и время",
+        required=False,
         input_formats=["%Y-%m-%dT%H:%M"],
-        widget=forms.DateTimeInput(attrs={"type": "datetime-local"}, format="%Y-%m-%dT%H:%M"),
+        widget=forms.DateTimeInput(
+            attrs={"type": "datetime-local"}, format="%Y-%m-%dT%H:%M"
+        ),
     )
 
     class Meta:
@@ -55,7 +62,9 @@ class InquiryForm(forms.ModelForm):
         if visit_at:
             visit_time = timezone.localtime(visit_at).time()
             if visit_time < time(9) or visit_time > time(20):
-                self.add_error("visit_at", "Начало двухчасового посещения — с 09:00 до 20:00.")
+                self.add_error(
+                    "visit_at", "Начало двухчасового посещения — с 09:00 до 20:00."
+                )
         return data
 
 
@@ -71,9 +80,21 @@ class PublicationForm(forms.ModelForm):
 
     class Meta:
         model = Publication
-        fields = ["title", "slug", "summary", "body", "category", "image", "image_alt", "published_at", "is_published"]
+        fields = [
+            "title",
+            "slug",
+            "summary",
+            "body",
+            "category",
+            "image",
+            "image_alt",
+            "published_at",
+            "is_published",
+        ]
         widgets = {
             "body": forms.Textarea(attrs={"rows": 8}),
             "published_at": forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
         }
-        help_texts = {"slug": "Короткое название латиницей, например new-sauna. Вместо пробелов — дефис."}
+        help_texts = {
+            "slug": "Короткое название латиницей, например new-sauna. Вместо пробелов — дефис."
+        }

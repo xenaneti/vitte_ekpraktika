@@ -1,16 +1,134 @@
-{% extends 'base.html' %}{% load static %}
+{% extends "base.html" %}
+{% load static %}
 {% block content %}
-<section class="hero">
-  <div class="hero-copy"><span class="eyebrow">Бани и сауны в Москве</span><h1>Время для<br>хорошего пара</h1><p>Отдельная баня, деревянные полки и чай после парной. Собирайтесь своей компанией — помещение будет только вашим.</p><a class="button cream" href="{% url 'baths' %}">Выбрать баню <span aria-hidden="true">↗</span></a><div class="hero-note"><span class="small-dot"></span>Ежедневно с 09:00 до 22:00</div></div>
-  <div class="hero-image"><img src="{% static 'images/banya.jpg' %}" alt="Деревянная парная с полками и печью" width="1600" height="1067" fetchpriority="high"><span class="image-caption">Тепло дерева. Мягкий свет.</span></div>
-</section>
-<div class="facts container"><div><strong>5</strong><span>бань и саун<br>на выбор</span></div><div><strong>от 1 600 ₽</strong><span>за час аренды<br>помещения</span></div><div><strong>до 10</strong><span>человек<br>в компании</span></div><div><strong>от 2 часов</strong><span>без спешки<br>и суеты</span></div></div>
-<section class="container section">
-  <div class="section-heading"><div><span class="eyebrow">У каждого свой пар</span><h2>Выберите своё место</h2></div><a class="text-link" href="{% url 'baths' %}">Все бани и сауны <span aria-hidden="true">↗</span></a></div>
-  <div class="bath-grid">{% for bath in baths %}{% include 'includes/bath_card.html' %}{% endfor %}</div>
-</section>
-<section class="intro-section container"><div class="intro-image"><img src="{% static 'images/sauna.jpg' %}" alt="Светлая парная с деревянной отделкой" width="1600" height="1067" loading="lazy"></div><div class="intro-copy"><span class="eyebrow">О комплексе</span><h2>В баню —<br>как к себе</h2><p>В «Тихом паре» пять отдельных помещений. В каждом есть парная, душ и место, где можно посидеть за чаем. Вы арендуете весь зал на свою компанию.</p><p>Полотенца можно взять напрокат. Веник и чай — заказать на месте. Стоимость дополнительных услуг указана отдельно.</p><a class="text-link" href="{% url 'about' %}">Как всё устроено <span aria-hidden="true">↗</span></a></div></section>
-<section class="container section"><div class="offer"><div><span class="eyebrow">Будни — для отдыха</span><h2>Чай после парной — в подарок</h2><p>При аренде от трёх часов с понедельника по четверг.</p></div><a class="button" href="{% url 'news' %}#tea-on-weekdays">Условия предложения <span aria-hidden="true">↗</span></a></div></section>
-<section class="container section news-section"><div class="section-heading"><div><span class="eyebrow">Жизнь комплекса</span><h2>Новости и предложения</h2></div><a class="text-link" href="{% url 'news' %}">Все новости <span aria-hidden="true">↗</span></a></div><div class="news-grid">{% for article in news %}<article class="news-preview"><span class="date">{{ article.published_at|date:'d.m.Y' }}</span><h3><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></h3><p>{{ article.summary }}</p><a class="text-link" href="{{ article.get_absolute_url }}">Читать <span aria-hidden="true">↗</span></a></article>{% endfor %}</div></section>
-<section class="contact-strip"><div class="container"><div><span class="eyebrow">Спланируем ваш отдых</span><h2>Осталось выбрать время</h2></div><a class="button cream" href="{% url 'contacts' %}#contact-form">Оставить заявку <span aria-hidden="true">↗</span></a></div></section>
+  <section class="hero">
+    <div class="hero-copy">
+      <span class="eyebrow">Бани и сауны в Москве</span>
+      <h1>
+        Время для
+        <br>
+        хорошего пара
+      </h1>
+      <p>Отдельная баня, деревянные полки и чай после парной. Собирайтесь своей компанией — помещение будет только вашим.</p>
+      <a class="button cream" href="{% url 'baths' %}">Выбрать баню <span aria-hidden="true">↗</span>
+      </a>
+      <div class="hero-note">
+        <span class="small-dot"></span>Ежедневно с 09:00 до 22:00
+      </div>
+    </div>
+    <div class="hero-image">
+      <img src="{% static 'images/banya.webp' %}"
+           alt="Деревянная парная с полками и печью"
+           width="1600"
+           height="1067"
+           fetchpriority="high">
+      <span class="image-caption">Тепло дерева. Мягкий свет.</span>
+    </div>
+  </section>
+  <div class="facts container">
+    <div>
+      <strong>5</strong>
+      <span>бань и саун
+        <br>
+      на выбор</span>
+    </div>
+    <div>
+      <strong>от 1 600 ₽</strong>
+      <span>за час аренды
+        <br>
+      помещения</span>
+    </div>
+    <div>
+      <strong>до 10</strong>
+      <span>человек
+        <br>
+      в компании</span>
+    </div>
+    <div>
+      <strong>от 2 часов</strong>
+      <span>без спешки
+        <br>
+      и суеты</span>
+    </div>
+  </div>
+  <section class="container section">
+    <div class="section-heading">
+      <div>
+        <span class="eyebrow">У каждого свой пар</span>
+        <h2>Выберите своё место</h2>
+      </div>
+      <a class="text-link" href="{% url 'baths' %}">Все бани и сауны <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+    <div class="bath-grid">
+      {% for bath in baths %}
+        {% include "includes/bath_card.html" %}
+      {% endfor %}
+    </div>
+  </section>
+  <section class="intro-section container">
+    <div class="intro-image">
+      <img src="{% static 'images/sauna.webp' %}"
+           alt="Светлая парная с деревянной отделкой"
+           width="1600"
+           height="1067"
+           loading="lazy">
+    </div>
+    <div class="intro-copy">
+      <span class="eyebrow">О комплексе</span>
+      <h2>
+        В баню —
+        <br>
+        как к себе
+      </h2>
+      <p>В «Тихом паре» пять отдельных помещений. В каждом есть парная, душ и место, где можно посидеть за чаем. Вы арендуете весь зал на свою компанию.</p>
+      <p>Полотенца можно взять напрокат. Веник и чай — заказать на месте. Стоимость дополнительных услуг указана отдельно.</p>
+      <a class="text-link" href="{% url 'about' %}">Как всё устроено <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+  </section>
+  <section class="container section">
+    <div class="offer">
+      <div>
+        <span class="eyebrow">Будни — для отдыха</span>
+        <h2>Чай после парной — в подарок</h2>
+        <p>При аренде от трёх часов с понедельника по четверг.</p>
+      </div>
+      <a class="button" href="{% url 'news' %}#tea-on-weekdays">Условия предложения <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+  </section>
+  <section class="container section news-section">
+    <div class="section-heading">
+      <div>
+        <span class="eyebrow">Жизнь комплекса</span>
+        <h2>Новости и предложения</h2>
+      </div>
+      <a class="text-link" href="{% url 'news' %}">Все новости <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+    <div class="news-grid">
+      {% for article in news %}
+        <article class="news-preview">
+          <span class="date">{{ article.published_at|date:'d.m.Y' }}</span>
+          <h3>
+            <a href="{{ article.get_absolute_url }}">{{ article.title }}</a>
+          </h3>
+          <p>{{ article.summary }}</p>
+          <a class="text-link" href="{{ article.get_absolute_url }}">Читать <span aria-hidden="true">↗</span>
+          </a>
+        </article>
+      {% endfor %}
+    </div>
+  </section>
+  <section class="contact-strip">
+    <div class="container">
+      <div>
+        <span class="eyebrow">Спланируем ваш отдых</span>
+        <h2>Осталось выбрать время</h2>
+      </div>
+      <a class="button cream" href="{% url 'contacts' %}#contact-form">Оставить заявку <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+  </section>
 {% endblock %}

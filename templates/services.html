@@ -1,7 +1,65 @@
-{% extends 'base.html' %}{% load static %}
-{% block content %}<div class="container section">
-{% include 'includes/page_heading.html' with heading='Услуги и цены' eyebrow='Что входит в ваш отдых' intro='Аренда помещения оплачивается за всю компанию в пределах указанной вместимости. Дополнительные услуги можно выбрать по желанию.' %}
-<section class="price-section"><h2>Аренда бань и саун</h2><div class="table-scroll"><table><caption class="visually-hidden">Стоимость аренды за час</caption><thead><tr><th scope="col">Помещение</th><th scope="col">Вместимость</th><th scope="col">Цена за час</th><th scope="col">За 2 часа</th></tr></thead><tbody>{% for bath in baths %}<tr><td><a href="{{ bath.get_absolute_url }}">{{ bath.name }}</a></td><td>до {{ bath.capacity }} человек</td><td>{{ bath.price }} ₽</td><td>{% widthratio bath.price 1 2 %} ₽</td></tr>{% endfor %}</tbody></table></div><p class="note">Парная, душ и комната отдыха входят в аренду. Дополнительные часы согласуются с администратором.</p></section>
-<section><div class="section-heading"><h2>К посещению</h2><span class="muted">По желанию</span></div><div class="service-list">{% for service in services %}<article class="service" id="{{ service.slug }}"><img src="{% static service.image %}" alt="{{ service.image_alt }}" width="180" height="180" loading="lazy"><div><h3>{{ service.name }}</h3><p>{{ service.description }}</p></div><div class="service-price"><strong>{{ service.price }} ₽</strong><span>{{ service.unit }}</span></div></article>{% endfor %}</div></section>
-<div class="inline-callout"><p>Нужно уточнить состав услуг или время?</p><a class="button" href="{% url 'contacts' %}#contact-form">Написать администратору ↗</a></div>
-</div>{% endblock %}
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+  <div class="container section">
+    {% include "includes/page_heading.html" with heading="Услуги и цены" eyebrow="Что входит в ваш отдых" intro="Аренда помещения оплачивается за всю компанию в пределах указанной вместимости. Дополнительные услуги можно выбрать по желанию." %}
+    <section class="price-section">
+      <h2>Аренда бань и саун</h2>
+      <div class="table-scroll">
+        <table>
+          <caption class="visually-hidden">Стоимость аренды за час</caption>
+          <thead>
+            <tr>
+              <th scope="col">Помещение</th>
+              <th scope="col">Вместимость</th>
+              <th scope="col">Цена за час</th>
+              <th scope="col">За 2 часа</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for bath in baths %}
+              <tr>
+                <td>
+                  <a href="{{ bath.get_absolute_url }}">{{ bath.name }}</a>
+                </td>
+                <td>до {{ bath.capacity }} человек</td>
+                <td>{{ bath.price }} ₽</td>
+                <td>{% widthratio bath.price 1 2 %} ₽</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <p class="note">Парная, душ и комната отдыха входят в аренду. Дополнительные часы согласуются с администратором.</p>
+    </section>
+    <section>
+      <div class="section-heading">
+        <h2>К посещению</h2>
+        <span class="muted">По желанию</span>
+      </div>
+      <div class="service-list">
+        {% for service in services %}
+          <article class="service" id="{{ service.slug }}">
+            <img src="{% static service.image %}"
+                 alt="{{ service.image_alt }}"
+                 width="180"
+                 height="180"
+                 loading="lazy">
+            <div>
+              <h3>{{ service.name }}</h3>
+              <p>{{ service.description }}</p>
+            </div>
+            <div class="service-price">
+              <strong>{{ service.price }} ₽</strong>
+              <span>{{ service.unit }}</span>
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+    </section>
+    <div class="inline-callout">
+      <p>Нужно уточнить состав услуг или время?</p>
+      <a class="button" href="{% url 'contacts' %}#contact-form">Написать администратору ↗</a>
+    </div>
+  </div>
+{% endblock %}

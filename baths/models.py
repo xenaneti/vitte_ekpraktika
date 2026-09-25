@@ -44,7 +44,11 @@ class Service(models.Model):
 
 
 class Publication(models.Model):
-    CATEGORIES = [("visit", "Перед посещением"), ("baths", "О банях и отдыхе"), ("news", "Новости комплекса")]
+    CATEGORIES = [
+        ("visit", "Перед посещением"),
+        ("baths", "О банях и отдыхе"),
+        ("news", "Новости комплекса"),
+    ]
     title = models.CharField("Заголовок", max_length=160)
     slug = models.SlugField("Адрес материала", unique=True, max_length=100)
     summary = models.CharField("Краткое описание", max_length=300)
@@ -68,7 +72,9 @@ class Publication(models.Model):
 
 class Inquiry(models.Model):
     STATUSES = [("new", "Новая"), ("active", "В работе"), ("closed", "Закрыта")]
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True
+    )
     name = models.CharField("Имя", max_length=80)
     email = models.EmailField("Почта")
     subject = models.CharField("Тема", max_length=120)
@@ -83,7 +89,9 @@ class Inquiry(models.Model):
 
 
 class Message(models.Model):
-    inquiry = models.ForeignKey(Inquiry, on_delete=models.CASCADE, related_name="replies")
+    inquiry = models.ForeignKey(
+        Inquiry, on_delete=models.CASCADE, related_name="replies"
+    )
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
     text = models.TextField("Сообщение", max_length=3000)
     created_at = models.DateTimeField(auto_now_add=True)

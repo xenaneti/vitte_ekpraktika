@@ -1,6 +1,48 @@
-{% extends 'base.html' %}
-{% block content %}<div class="container section">
-{% include 'includes/page_heading.html' with heading='Контакты' eyebrow='На связи каждый день' intro='Напишите, какое помещение вам понравилось и когда хотите прийти. Администратор уточнит доступное время.' %}
-<div class="contact-layout"><div class="contact-details"><h2>Как нас найти</h2><dl><dt>Адрес</dt><dd>Москва, ул. Парная, 8<br><small>Учебный адрес</small></dd><dt>Режим работы</dt><dd>Ежедневно, 09:00–22:00</dd><dt>Почта</dt><dd>hello@tihiy-par.example<br><small>Демонстрационный адрес. Для проверки используйте форму.</small></dd></dl><div class="contact-note"><h3>Ответ в личном кабинете</h3><p>Чтобы вести переписку на сайте, <a href="{% url 'account' %}">войдите</a> перед отправкой. Гостевое обращение сохраняется у администратора с указанными контактами.</p></div><a class="text-link" href="{% url 'about' %}">Правила посещения ↗</a></div>
-<section class="form-panel" id="contact-form"><span class="eyebrow">Вопрос или заявка</span><h2>Напишите нам</h2><p class="muted">Поля со звёздочкой обязательны. Время посещения подтверждается отдельно.</p><form method="post" action="{% url 'contacts' %}#contact-form">{% csrf_token %}{% include 'includes/form_fields.html' %}<button class="button" type="submit">Отправить обращение ↗</button></form><details class="privacy-note"><summary>Как используются данные</summary><p>Имя, почта и текст сохраняются в базе учебного сайта для обработки обращения. Их видят администратор и автор после входа. Для удаления обращения напишите администратору. Указывайте тестовые данные: комплекс вымышленный.</p></details></section></div>
-</div>{% endblock %}
+{% extends "base.html" %}
+{% block content %}
+  <div class="container section">
+    {% include "includes/page_heading.html" with heading="Контакты" eyebrow="На связи каждый день" intro="Напишите, какое помещение вам понравилось и когда хотите прийти. Администратор уточнит доступное время." %}
+    <div class="contact-layout">
+      <div class="contact-details">
+        <h2>Как нас найти</h2>
+        <dl>
+          <dt>Адрес</dt>
+          <dd>
+            Москва, ул. Парная, 8
+            <br>
+            <small>Учебный адрес</small>
+          </dd>
+          <dt>Режим работы</dt>
+          <dd>
+            Ежедневно, 09:00–22:00
+          </dd>
+          <dt>Почта</dt>
+          <dd>
+            hello@tihiy-par.example
+            <br>
+            <small>Демонстрационный адрес. Для проверки используйте форму.</small>
+          </dd>
+        </dl>
+        <div class="contact-note">
+          <h3>Ответ в личном кабинете</h3>
+          <p>Чтобы вести переписку на сайте, <a href="{% url 'account' %}">войдите</a> перед отправкой. Гостевое обращение сохраняется у администратора с указанными контактами.</p>
+        </div>
+        <a class="text-link" href="{% url 'about' %}">Правила посещения ↗</a>
+      </div>
+      <section class="form-panel" id="contact-form">
+        <span class="eyebrow">Вопрос или заявка</span>
+        <h2>Напишите нам</h2>
+        <p class="muted">Поля со звёздочкой обязательны. Время посещения подтверждается отдельно.</p>
+        <form method="post" action="{% url 'contacts' %}#contact-form">
+          {% csrf_token %}
+          {% include "includes/form_fields.html" %}
+          <button class="button" type="submit">Отправить обращение ↗</button>
+        </form>
+        <details class="privacy-note">
+          <summary>Как используются данные</summary>
+          <p>Имя, почта и текст сохраняются в базе учебного сайта для обработки обращения. Их видят администратор и автор после входа. Для удаления обращения напишите администратору. Указывайте тестовые данные: комплекс вымышленный.</p>
+        </details>
+      </section>
+    </div>
+  </div>
+{% endblock %}

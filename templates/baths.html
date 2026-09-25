@@ -1,6 +1,32 @@
-{% extends 'base.html' %}{% load static %}
-{% block content %}<div class="container section">
-{% include 'includes/page_heading.html' with heading='Бани и сауны' eyebrow='Для небольшой и большой компании' intro='Выберите помещение по вместимости и обстановке. В стоимость входит аренда всего зала. Минимальное время — два часа.' %}
-<div class="bath-list">{% for bath in baths %}<article class="bath-detail" id="{{ bath.slug }}"><img src="{% static bath.image %}" alt="{{ bath.image_alt }}" width="800" height="600" loading="lazy"><div><span class="eyebrow">до {{ bath.capacity }} человек · от 2 часов</span><h2>{{ bath.name }}</h2><p>{{ bath.description }}</p><p class="features">{{ bath.features }}</p><div class="detail-bottom"><strong>{{ bath.price }} ₽ <small>/ час</small></strong><a class="button" href="{% url 'contacts' %}?bath={{ bath.slug }}#contact-form">Оставить заявку ↗</a></div></div></article>{% endfor %}</div>
-<p class="note">Время посещения подтверждает администратор. <a href="{% url 'services' %}">Дополнительные услуги оплачиваются отдельно.</a></p>
-</div>{% endblock %}
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+  <div class="container section">
+    {% include "includes/page_heading.html" with heading="Бани и сауны" eyebrow="Для небольшой и большой компании" intro="Выберите помещение по вместимости и обстановке. В стоимость входит аренда всего зала. Минимальное время — два часа." %}
+    <div class="bath-list">
+      {% for bath in baths %}
+        <article class="bath-detail" id="{{ bath.slug }}">
+          <img src="{% static bath.image %}"
+               alt="{{ bath.image_alt }}"
+               width="800"
+               height="600"
+               loading="lazy">
+          <div>
+            <span class="eyebrow">до {{ bath.capacity }} человек · от 2 часов</span>
+            <h2>{{ bath.name }}</h2>
+            <p>{{ bath.description }}</p>
+            <p class="features">{{ bath.features }}</p>
+            <div class="detail-bottom">
+              <strong>{{ bath.price }} ₽ <small>/ час</small>
+              </strong>
+              <a class="button"
+                 href="{% url 'contacts' %}?bath={{ bath.slug }}#contact-form">Оставить заявку ↗</a>
+            </div>
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+    <p class="note">Время посещения подтверждает администратор. <a href="{% url 'services' %}">Дополнительные услуги оплачиваются отдельно.</a>
+    </p>
+  </div>
+{% endblock %}

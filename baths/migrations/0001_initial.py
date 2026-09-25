@@ -16,85 +16,217 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Bath',
+            name="Bath",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=100, verbose_name='Название')),
-                ('slug', models.SlugField(unique=True)),
-                ('description', models.TextField(verbose_name='Описание')),
-                ('capacity', models.PositiveSmallIntegerField(verbose_name='Вместимость')),
-                ('price', models.PositiveIntegerField(verbose_name='Цена за час')),
-                ('features', models.CharField(max_length=250, verbose_name='Удобства')),
-                ('image', models.CharField(max_length=100, verbose_name='Изображение')),
-                ('image_alt', models.CharField(max_length=200, verbose_name='Описание изображения')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=100, verbose_name="Название")),
+                ("slug", models.SlugField(unique=True)),
+                ("description", models.TextField(verbose_name="Описание")),
+                (
+                    "capacity",
+                    models.PositiveSmallIntegerField(verbose_name="Вместимость"),
+                ),
+                ("price", models.PositiveIntegerField(verbose_name="Цена за час")),
+                ("features", models.CharField(max_length=250, verbose_name="Удобства")),
+                ("image", models.CharField(max_length=100, verbose_name="Изображение")),
+                (
+                    "image_alt",
+                    models.CharField(
+                        max_length=200, verbose_name="Описание изображения"
+                    ),
+                ),
             ],
             options={
-                'ordering': ['id'],
+                "ordering": ["id"],
             },
         ),
         migrations.CreateModel(
-            name='Publication',
+            name="Publication",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=160, verbose_name='Заголовок')),
-                ('slug', models.SlugField(max_length=100, unique=True, verbose_name='Адрес материала')),
-                ('summary', models.CharField(max_length=300, verbose_name='Краткое описание')),
-                ('body', models.TextField(verbose_name='Текст')),
-                ('category', models.CharField(choices=[('visit', 'Перед посещением'), ('baths', 'О банях и отдыхе'), ('news', 'Новости комплекса')], max_length=20, verbose_name='Категория')),
-                ('image', models.CharField(max_length=100, verbose_name='Изображение')),
-                ('image_alt', models.CharField(max_length=200, verbose_name='Описание изображения')),
-                ('published_at', models.DateField(default=django.utils.timezone.localdate, verbose_name='Дата публикации')),
-                ('is_published', models.BooleanField(default=True, verbose_name='Опубликовано')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=160, verbose_name="Заголовок")),
+                (
+                    "slug",
+                    models.SlugField(
+                        max_length=100, unique=True, verbose_name="Адрес материала"
+                    ),
+                ),
+                (
+                    "summary",
+                    models.CharField(max_length=300, verbose_name="Краткое описание"),
+                ),
+                ("body", models.TextField(verbose_name="Текст")),
+                (
+                    "category",
+                    models.CharField(
+                        choices=[
+                            ("visit", "Перед посещением"),
+                            ("baths", "О банях и отдыхе"),
+                            ("news", "Новости комплекса"),
+                        ],
+                        max_length=20,
+                        verbose_name="Категория",
+                    ),
+                ),
+                ("image", models.CharField(max_length=100, verbose_name="Изображение")),
+                (
+                    "image_alt",
+                    models.CharField(
+                        max_length=200, verbose_name="Описание изображения"
+                    ),
+                ),
+                (
+                    "published_at",
+                    models.DateField(
+                        default=django.utils.timezone.localdate,
+                        verbose_name="Дата публикации",
+                    ),
+                ),
+                (
+                    "is_published",
+                    models.BooleanField(default=True, verbose_name="Опубликовано"),
+                ),
             ],
             options={
-                'ordering': ['-published_at', '-id'],
+                "ordering": ["-published_at", "-id"],
             },
         ),
         migrations.CreateModel(
-            name='Service',
+            name="Service",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=100, verbose_name='Название')),
-                ('slug', models.SlugField(unique=True)),
-                ('description', models.TextField(verbose_name='Описание')),
-                ('price', models.PositiveIntegerField(verbose_name='Цена')),
-                ('unit', models.CharField(max_length=50, verbose_name='Единица')),
-                ('image', models.CharField(max_length=100, verbose_name='Изображение')),
-                ('image_alt', models.CharField(max_length=200, verbose_name='Описание изображения')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=100, verbose_name="Название")),
+                ("slug", models.SlugField(unique=True)),
+                ("description", models.TextField(verbose_name="Описание")),
+                ("price", models.PositiveIntegerField(verbose_name="Цена")),
+                ("unit", models.CharField(max_length=50, verbose_name="Единица")),
+                ("image", models.CharField(max_length=100, verbose_name="Изображение")),
+                (
+                    "image_alt",
+                    models.CharField(
+                        max_length=200, verbose_name="Описание изображения"
+                    ),
+                ),
             ],
             options={
-                'ordering': ['id'],
+                "ordering": ["id"],
             },
         ),
         migrations.CreateModel(
-            name='Inquiry',
+            name="Inquiry",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=80, verbose_name='Имя')),
-                ('email', models.EmailField(max_length=254, verbose_name='Почта')),
-                ('subject', models.CharField(max_length=120, verbose_name='Тема')),
-                ('text', models.TextField(max_length=3000, verbose_name='Сообщение')),
-                ('visit_at', models.DateTimeField(blank=True, null=True, verbose_name='Желаемое время')),
-                ('status', models.CharField(choices=[('new', 'Новая'), ('active', 'В работе'), ('closed', 'Закрыта')], default='new', max_length=10, verbose_name='Статус')),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('bath', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='baths.bath')),
-                ('user', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=80, verbose_name="Имя")),
+                ("email", models.EmailField(max_length=254, verbose_name="Почта")),
+                ("subject", models.CharField(max_length=120, verbose_name="Тема")),
+                ("text", models.TextField(max_length=3000, verbose_name="Сообщение")),
+                (
+                    "visit_at",
+                    models.DateTimeField(
+                        blank=True, null=True, verbose_name="Желаемое время"
+                    ),
+                ),
+                (
+                    "status",
+                    models.CharField(
+                        choices=[
+                            ("new", "Новая"),
+                            ("active", "В работе"),
+                            ("closed", "Закрыта"),
+                        ],
+                        default="new",
+                        max_length=10,
+                        verbose_name="Статус",
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                (
+                    "bath",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to="baths.bath",
+                    ),
+                ),
+                (
+                    "user",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
             options={
-                'ordering': ['-created_at'],
+                "ordering": ["-created_at"],
             },
         ),
         migrations.CreateModel(
-            name='Message',
+            name="Message",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('text', models.TextField(max_length=3000, verbose_name='Сообщение')),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('author', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to=settings.AUTH_USER_MODEL)),
-                ('inquiry', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='replies', to='baths.inquiry')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("text", models.TextField(max_length=3000, verbose_name="Сообщение")),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                (
+                    "author",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
+                (
+                    "inquiry",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="replies",
+                        to="baths.inquiry",
+                    ),
+                ),
             ],
             options={
-                'ordering': ['created_at'],
+                "ordering": ["created_at"],
             },
         ),
     ]

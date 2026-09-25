@@ -1,2 +1,23 @@
 {% load static %}
-<article class="bath-card"><a class="bath-photo" href="{{ bath.get_absolute_url }}"><img src="{% static bath.image %}" alt="{{ bath.image_alt }}" width="800" height="600" loading="lazy"><span class="capacity">до {{ bath.capacity }} человек</span></a><div class="bath-card-body"><h3><a href="{{ bath.get_absolute_url }}">{{ bath.name }}</a></h3><p>{{ bath.features }}</p><div class="card-bottom"><span><strong>{{ bath.price }} ₽</strong> / час</span><a href="{% url 'contacts' %}?bath={{ bath.slug }}#contact-form" aria-label="Оставить заявку: {{ bath.name }}">Выбрать ↗</a></div></div></article>
+<article class="bath-card">
+  <a class="bath-photo" href="{{ bath.get_absolute_url }}">
+    <img src="{% static bath.image %}"
+         alt="{{ bath.image_alt }}"
+         width="800"
+         height="600"
+         loading="lazy">
+    <span class="capacity">до {{ bath.capacity }} человек</span>
+  </a>
+  <div class="bath-card-body">
+    <h3>
+      <a href="{{ bath.get_absolute_url }}">{{ bath.name }}</a>
+    </h3>
+    <p>{{ bath.features }}</p>
+    <div class="card-bottom">
+      <span>
+        <strong>{{ bath.price }} ₽</strong> / час</span>
+      <a href="{% url 'contacts' %}?bath={{ bath.slug }}#contact-form"
+         aria-label="Оставить заявку: {{ bath.name }}">Выбрать ↗</a>
+    </div>
+  </div>
+</article>

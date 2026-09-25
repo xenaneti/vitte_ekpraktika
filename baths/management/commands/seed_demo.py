@@ -13,7 +13,9 @@ class Command(BaseCommand):
     help = "Добавляет учебные помещения, услуги и публикации"
 
     def add_arguments(self, parser):
-        parser.add_argument("--with-users", action="store_true", help="Создать тестовые учётные записи")
+        parser.add_argument(
+            "--with-users", action="store_true", help="Создать тестовые учётные записи"
+        )
 
     @transaction.atomic
     def handle(self, *args, **options):
@@ -32,11 +34,20 @@ class Command(BaseCommand):
                 ("administrator", "Администратор", "Admin2026!Bath", True),
             ]
             for username, name, password, is_staff in accounts:
-                user, created = User.objects.get_or_create(username=username, defaults={
-                    "first_name": name, "email": username + "@example.com", "is_staff": is_staff,
-                })
+                user, created = User.objects.get_or_create(
+                    username=username,
+                    defaults={
+                        "first_name": name,
+                        "email": username + "@example.com",
+                        "is_staff": is_staff,
+                    },
+                )
                 if created:
                     user.set_password(password)
                     user.save()
                     self.stdout.write("Создан пользователь: " + username)
-        self.stdout.write(self.style.SUCCESS("Начальные данные добавлены. Существующие записи сохранены."))
+        self.stdout.write(
+            self.style.SUCCESS(
+                "Начальные данные добавлены. Существующие записи сохранены."
+            )
+        )

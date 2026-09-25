@@ -1,3 +1,54 @@
-<section class="conversation" id="conversation"><span class="eyebrow">Обращение № {{ current.pk }} · {{ current.get_status_display }}</span><h2>{{ current.subject }}</h2><p class="muted">{{ current.name }} · {{ current.created_at|date:'d.m.Y H:i' }}</p>{% if user.is_staff %}<p>Контакт: {{ current.email }}</p>{% if not current.user %}<p class="note">Гостевое обращение. Ответ в кабинете гостю недоступен — используйте оставленный контакт.</p>{% endif %}{% endif %}{% if current.bath %}<p><strong>{{ current.bath.name }}</strong> · {{ current.visit_at|date:'d.m.Y H:i' }}<br><small>Желаемое время, требует подтверждения.</small></p>{% endif %}<div class="message">{{ current.text|linebreaks }}</div>{% for reply in current.replies.all %}<div class="message {% if reply.author.is_staff %}staff-message{% endif %}"><div class="message-meta"><strong>{% if reply.author.is_staff %}Администратор{% else %}{{ reply.author.first_name|default:reply.author.username }}{% endif %}</strong><time>{{ reply.created_at|date:'d.m.Y H:i' }}</time></div>{{ reply.text|linebreaks }}</div>{% endfor %}
-{% if current.status != 'closed' %}<form method="post" action="{% url 'reply' current.pk %}">{% csrf_token %}{% include 'includes/form_fields.html' with form=reply_form %}<button class="button" type="submit">Отправить сообщение</button></form>{% else %}<p class="notice">Обращение закрыто.</p>{% endif %}
-{% if user.is_staff %}<form class="status-form" method="post" action="{% url 'staff' %}">{% csrf_token %}<input type="hidden" name="action" value="status"><input type="hidden" name="inquiry_id" value="{{ current.pk }}"><label for="status">Статус обращения</label><select id="status" name="status">{% for value, label in statuses %}<option value="{{ value }}" {% if current.status == value %}selected{% endif %}>{{ label }}</option>{% endfor %}</select><button class="button secondary small" type="submit">Сохранить статус</button></form>{% endif %}</section>
+<section class="conversation" id="conversation">
+  <span class="eyebrow">Обращение № {{ current.pk }} · {{ current.get_status_display }}</span>
+  <h2>{{ current.subject }}</h2>
+  <p class="muted">{{ current.name }} · {{ current.created_at|date:'d.m.Y H:i' }}</p>
+  {% if user.is_staff %}
+    <p>Контакт: {{ current.email }}</p>
+    {% if not current.user %}
+      <p class="note">Гостевое обращение. Ответ в кабинете гостю недоступен — используйте оставленный контакт.</p>
+    {% endif %}
+  {% endif %}
+  {% if current.bath %}
+    <p>
+      <strong>{{ current.bath.name }}</strong> · {{ current.visit_at|date:'d.m.Y H:i' }}
+      <br>
+      <small>Желаемое время, требует подтверждения.</small>
+    </p>
+  {% endif %}
+  <div class="message">{{ current.text|linebreaks }}</div>
+  {% for reply in current.replies.all %}
+    <div class="message {% if reply.author.is_staff %}staff-message{% endif %}">
+      <div class="message-meta">
+        <strong>
+          {% if reply.author.is_staff %}Администратор{% else %}{{ reply.author.first_name|default:reply.author.username }}{% endif %}
+        </strong>
+        <time>{{ reply.created_at|date:'d.m.Y H:i' }}</time>
+      </div>
+      {{ reply.text|linebreaks }}
+    </div>
+  {% endfor %}
+  {% if current.status != "closed" %}
+    <form method="post" action="{% url 'reply' current.pk %}">
+      {% csrf_token %}
+      {% include "includes/form_fields.html" with form=reply_form %}
+      <button class="button" type="submit">Отправить сообщение</button>
+    </form>
+  {% else %}
+    <p class="notice">Обращение закрыто.</p>
+  {% endif %}
+  {% if user.is_staff %}
+    <form class="status-form" method="post" action="{% url 'staff' %}">
+      {% csrf_token %}
+      <input type="hidden" name="action" value="status">
+      <input type="hidden" name="inquiry_id" value="{{ current.pk }}">
+      <label for="status">Статус обращения</label>
+      <select id="status" name="status">
+        {% for value, label in statuses %}
+          <option value="{{ value }}"
+                  {% if current.status == value %}selected{% endif %}>{{ label }}</option>
+        {% endfor %}
+      </select>
+      <button class="button secondary small" type="submit">Сохранить статус</button>
+    </form>
+  {% endif %}
+</section>

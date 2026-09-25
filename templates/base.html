@@ -1,50 +1,137 @@
 {% load static %}
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ru">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{ title }}</title>
-  {% if description %}<meta name="description" content="{{ description }}">{% endif %}
-  {% if noindex %}<meta name="robots" content="noindex, nofollow">{% endif %}
-  <link rel="canonical" href="{{ canonical_url }}">
-  <link rel="icon" href="{% static 'favicon.svg' %}" type="image/svg+xml">
-  <link rel="stylesheet" href="{% static 'css/site.css' %}">
-  <script src="{% static 'js/accessibility.js' %}"></script>
-  <script src="{% static 'js/site.js' %}" defer></script>
-</head>
-<body>
-  <a class="skip-link" href="#main">Перейти к содержимому</a>
-  <div class="utility"><div class="container utility-inner"><span>Москва · ежедневно 09:00–22:00</span><button type="button" id="access-toggle" aria-expanded="false" aria-controls="access-panel">Aa <span>Версия для слабовидящих</span></button></div></div>
-  <section id="access-panel" class="access-panel" aria-label="Настройки отображения" hidden>
-    <div class="container access-controls">
-      <label>Цвета<select id="access-theme"><option value="normal">Обычные</option><option value="light">Чёрный на белом</option><option value="dark">Белый на чёрном</option></select></label>
-      <label>Размер текста<select id="access-size"><option value="normal">Обычный</option><option value="large">Крупный</option><option value="larger">Очень крупный</option></select></label>
-      <label class="check"><input id="access-spacing" type="checkbox"> Увеличить интервалы</label>
-      <label class="check"><input id="access-images" type="checkbox"> Скрыть изображения</label>
-      <button class="button secondary small" id="access-reset" type="button">Сбросить</button>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ title }}</title>
+    {% if description %}
+      <meta name="description" content="{{ description }}">
+    {% endif %}
+    {% if noindex %}
+      <meta name="robots" content="noindex, nofollow">
+    {% endif %}
+    <link rel="canonical" href="{{ canonical_url }}">
+    <link rel="icon" href="{% static 'favicon.svg' %}" type="image/svg+xml">
+    <link rel="stylesheet" href="{% static 'css/site.css' %}">
+    <script src="{% static 'js/accessibility.js' %}"></script>
+    <script src="{% static 'js/site.js' %}" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Перейти к содержимому</a>
+    <div class="utility">
+      <div class="container utility-inner">
+        <span>Москва · ежедневно 09:00–22:00</span>
+        <button type="button"
+                id="access-toggle"
+                aria-expanded="false"
+                aria-controls="access-panel">
+          Aa <span>Версия для слабовидящих</span>
+        </button>
+      </div>
     </div>
-  </section>
-  <header class="site-header">
-    <div class="container header-inner">
-      <a class="brand" href="{% url 'home' %}" aria-label="Тихий пар — главная">
-        <svg viewBox="0 0 40 48" width="34" height="42" aria-hidden="true"><path d="M10 31c-12-12 12-14 0-27M20 38c-12-12 12-14 0-27M30 31c-12-12 12-14 0-27M3 44h34" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-        <span>тихий пар<small>банный комплекс</small></span>
-      </a>
-      <button class="menu-toggle button secondary small" id="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav">Меню</button>
-      <nav class="main-nav" id="main-nav" aria-label="Основное меню">
-        {% for name, label in navigation %}<a href="{% url name %}" {% if request.resolver_match.url_name == name %}aria-current="page"{% endif %}>{{ label }}</a>{% endfor %}
-      </nav>
-      <div class="header-actions"><a class="icon-link" href="{% url 'search' %}" aria-label="Поиск по сайту"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg></a><a class="account-link" href="{% url 'account' %}">{% if user.is_authenticated %}Кабинет{% else %}Войти{% endif %}<span aria-hidden="true">↗</span></a></div>
-    </div>
-  </header>
-  <main id="main" tabindex="-1">
-    {% if messages %}<div class="container notifications" aria-live="polite">{% for message in messages %}<p class="notice {{ message.tags }}">{{ message }}</p>{% endfor %}</div>{% endif %}
-    {% block content %}{% endblock %}
-  </main>
-  <footer class="site-footer">
-    <div class="container footer-top"><div><a class="brand footer-brand" href="{% url 'home' %}">тихий пар</a><p>Баня. Чай. Время для себя.</p></div><nav aria-label="Меню в подвале">{% for name, label in navigation %}<a href="{% url name %}">{{ label }}</a>{% endfor %}</nav><div><p>Ежедневно · 09:00–22:00</p><a href="{% url 'contacts' %}#contact-form">Написать администратору ↗</a><a href="{% url 'sitemap' %}">Карта сайта</a>{% if user.is_staff %}<a href="{% url 'staff' %}">Управление</a>{% endif %}</div></div>
-    <div class="container footer-bottom"><span>© {% now 'Y' %} Тихий пар</span><span>Учебный проект. Комплекс и цены вымышлены.</span></div>
-  </footer>
-</body>
+    <section id="access-panel"
+             class="access-panel"
+             aria-label="Настройки отображения"
+             hidden>
+      <div class="container access-controls">
+        <label>
+          Цвета<select id="access-theme">
+          <option value="normal">Обычные</option>
+          <option value="light">Чёрный на белом</option>
+          <option value="dark">Белый на чёрном</option>
+          </select>
+        </label>
+        <label>
+          Размер текста<select id="access-size">
+          <option value="normal">Обычный</option>
+          <option value="large">Крупный</option>
+          <option value="larger">Очень крупный</option>
+          </select>
+        </label>
+        <label class="check">
+          <input id="access-spacing" type="checkbox">
+          Увеличить интервалы
+        </label>
+        <label class="check">
+          <input id="access-images" type="checkbox">
+          Скрыть изображения
+        </label>
+        <button class="button secondary small" id="access-reset" type="button">Сбросить</button>
+      </div>
+    </section>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand"
+           href="{% url 'home' %}"
+           aria-label="Тихий пар — главная">
+          <svg viewBox="0 0 40 48" width="34" height="42" aria-hidden="true">
+            <path d="M10 31c-12-12 12-14 0-27M20 38c-12-12 12-14 0-27M30 31c-12-12 12-14 0-27M3 44h34" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+          </svg>
+          <span>тихий пар<small>банный комплекс</small>
+          </span>
+        </a>
+        <button class="menu-toggle button secondary small"
+                id="menu-toggle"
+                type="button"
+                aria-expanded="false"
+                aria-controls="main-nav">Меню</button>
+        <nav class="main-nav" id="main-nav" aria-label="Основное меню">
+          {% for name, label in navigation %}
+            <a href="{% url name %}"
+               {% if request.resolver_match.url_name == name %}aria-current="page"{% endif %}>{{ label }}</a>
+          {% endfor %}
+        </nav>
+        <div class="header-actions">
+          <a class="icon-link"
+             href="{% url 'search' %}"
+             aria-label="Поиск по сайту">
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+              <circle cx="10.5" cy="10.5" r="6.5" />
+              <path d="m16 16 5 5" />
+            </svg>
+          </a>
+          <a class="account-link" href="{% url 'account' %}">
+            {% if user.is_authenticated %}Кабинет{% else %}Войти{% endif %}
+            <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </div>
+    </header>
+    <main id="main" tabindex="-1">
+      {% if messages %}
+        <div class="container notifications" aria-live="polite">
+          {% for message in messages %}
+            <p class="notice {{ message.tags }}">{{ message }}</p>
+          {% endfor %}
+        </div>
+      {% endif %}
+      {% block content %}{% endblock %}
+    </main>
+    <footer class="site-footer">
+      <div class="container footer-top">
+        <div>
+          <a class="brand footer-brand" href="{% url 'home' %}">тихий пар</a>
+          <p>Баня. Чай. Время для себя.</p>
+        </div>
+        <nav aria-label="Меню в подвале">
+          {% for name, label in navigation %}
+            <a href="{% url name %}">{{ label }}</a>
+          {% endfor %}
+        </nav>
+        <div>
+          <p>Ежедневно · 09:00–22:00</p>
+          <a href="{% url 'contacts' %}#contact-form">Написать администратору ↗</a>
+          <a href="{% url 'sitemap' %}">Карта сайта</a>
+          {% if user.is_staff %}
+            <a href="{% url 'staff' %}">Управление</a>
+          {% endif %}
+        </div>
+      </div>
+      <div class="container footer-bottom">
+        <span>© {% now "Y" %} Тихий пар</span>
+        <span>Учебный проект. Комплекс и цены вымышлены.</span>
+      </div>
+    </footer>
+  </body>
 </html>
